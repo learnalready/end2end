@@ -1,0 +1,4 @@
+FROM  localhost:5000/nginx
+  VOLUME /usr/share/nginx/html
+  VOLUME /etc/nginx
+  VOLUME /var/log/nginx/log
