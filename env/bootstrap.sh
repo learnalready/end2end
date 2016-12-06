@@ -31,14 +31,11 @@ sleep 3
 echo "Test Docker..."
 sudo docker run hello-world
 
-exit 0
-
-
 #setup Jenkins
 echo "Install Jenkins..."
 mkdir -p ~/jenkins
 sudo chmod ugo+rw ~/jenkins   # maybe permissiosn too much not sure
-sudo docker run -p 8080:8080 -p 50000:50000 -v ~/jenkins:/var/jenkins_home jenkins
+sudo docker run -p 8080:8080 -p 50000:50000 -v ~/jenkins:/var/jenkins_home -d jenkins
 
 # Goal put Ruby in docker file and add cucumber to that container for now just pull ruby into Host
 echo "Install Ruby..."
