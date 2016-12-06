@@ -11,4 +11,19 @@ sudo apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
 sudo apt-get -y install docker-engine
 sudo service docker start
 sleep 3
+
+echo "Install .NET Core..." 
 sudo docker pull microsoft/dotnet:latest
+
+# node.js
+echo "Install node.js ..." 
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# node.js build tools
+sudo apt-get install -y build-essential
+
+# install a few node packages
+echo "Install npm packages ..." 
+sudo npm install -g yo bower grunt-cli gulp
+sudo npm install -g generator-aspnet

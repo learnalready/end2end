@@ -52,10 +52,19 @@ Vagrant.configure("2") do |config|
   else   # dotnet
     config.vm.box = "ubuntu/xenial64"
     config.vm.network "private_network", ip: "10.100.198.201"
-    config.vm.provision :shell, path: "bootstrap_dotnet.sh"
+    config.vm.synced_folder "../src", "/projects"
+
     config.vm.provider "virtualbox" do |v|
+      v.name = "dotnet_fun"
       v.memory = 3072
     end
+
+    # need to fix readonly prior to running script:  vagrant plugin install vagrant-host-shell
+    config.vm.provision :host_shell do |host_shell|
+      host_shell.inline = 'C:\Program Files\Oracle\VirtualBox\VBoxManage setextradata dotnet_fun VBoxInternal2/SharedFoldersEnableSymlinksCreate/SHARE_NAME 1'
+    end
+    config.vm.provision :shell, path: "bootstrap_dotnet.sh"
     
   end    # dotnet
+  puts "All Done"
 end
