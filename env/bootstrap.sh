@@ -9,7 +9,6 @@ if ! [ -L /var/www ]; then
   rm -rf /var/www
   ln -fs /vagrant /var/www
 fi
-#apt-get --assume-yes install docker.io
 
 #Install Ansible
 echo "Install Ansible..."
@@ -33,9 +32,17 @@ sudo docker run hello-world
 
 #setup Jenkins
 echo "Install Jenkins..."
-mkdir -p ~/jenkins
+mkdir -p /home/ubuntu/jenkins
+mkdir -p /home/ubuntu/jenkins/plugins/
+# Jenkins plugins
+# If you add plugins after the install need to login and then go to <jenkinsIP>:8080/restart
+cd /home/ubuntu/jenkins/plugins/
+wget http://updates.jenkins-ci.org/latest/authentication-tokens.hpi
+wget http://updates.jenkins-ci.org/latest/docker-commons.hpi
+wget http://updates.jenkins-ci.org/latest/docker-custom-build-environment.hpi
+
 sudo chmod ugo+rw ~/jenkins   # maybe permissiosn too much not sure
-sudo docker run -p 8080:8080 -p 50000:50000 -v ~/jenkins:/var/jenkins_home -d jenkins
+sudo docker run -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenkins:/var/jenkins_home -d jenkins
 
 # Goal put Ruby in docker file and add cucumber to that container for now just pull ruby into Host
 echo "Install Ruby..."
