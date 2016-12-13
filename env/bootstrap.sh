@@ -32,24 +32,45 @@ sudo docker run hello-world
 
 #setup Jenkins
 echo "Install Jenkins..."
-mkdir -p /home/ubuntu/jenkins
-mkdir -p /home/ubuntu/jenkins/plugins/
+wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get -y install jenkins
+
+#setup jdk 
+echo "Install JDK"
+sudo apt-get -y install default-jdk
+
+#setup maven
+echo "Install maven"
+sudo apt-get -y install maven
+
+#setup git
+sudo apt-get -y install git
+
+
+# *********************************************
+# Commenting out Docker jenkins
+#  Howto guide for when we get further along
+#  https://www.wouterdanes.net/2014/04/11/continuous-integration-using-docker-maven-and-jenkins.html
+#mkdir -p /home/ubuntu/jenkins
+#mkdir -p /home/ubuntu/jenkins/plugins/
 # Jenkins plugins
 # If you add plugins after the install need to login and then go to <jenkinsIP>:8080/restart
-cd /home/ubuntu/jenkins/plugins/
-wget http://updates.jenkins-ci.org/latest/authentication-tokens.hpi
-wget http://updates.jenkins-ci.org/latest/docker-commons.hpi
-wget http://updates.jenkins-ci.org/latest/docker-custom-build-environment.hpi
+#cd /home/ubuntu/jenkins/plugins/
+#wget http://updates.jenkins-ci.org/latest/authentication-tokens.hpi
+#wget http://updates.jenkins-ci.org/latest/docker-commons.hpi
+#wget http://updates.jenkins-ci.org/latest/docker-custom-build-environment.hpi
 
-sudo chmod ugo+rw ~/jenkins   # maybe permissiosn too much not sure
-sudo docker run -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenkins:/var/jenkins_home -d jenkins
+#sudo chmod ugo+rw ~/jenkins   # maybe permissiosn too much not sure
+#sudo docker run -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenkins:/var/jenkins_home -d jenkins
+# **** end of Docker Jenkins
 
 # Goal put Ruby in docker file and add cucumber to that container for now just pull ruby into Host
 echo "Install Ruby..."
 sudo apt-get -y install ruby-full
 sudo gem install cucumber
 sudo gem install gherkin
-sudo apt-get -y install default-jre
 
 
 # install chrome/chrome driver
