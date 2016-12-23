@@ -4,6 +4,7 @@ print_step () {
 }
 
 apt-get update
+sudo apt-get upgrade -y
 apt-get install -y apache2
 if ! [ -L /var/www ]; then
   rm -rf /var/www
@@ -73,6 +74,11 @@ sudo gem install cucumber
 sudo gem install gherkin
 
 
+echo "Install node js"
+curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo apt-get install -y build-essential
+
 # install chrome/chrome driver
 echo "Install Chrome..."
 sudo apt-get -y install libxss1 libappindicator1 libindicator7
@@ -80,9 +86,9 @@ echo "Downloading Chrome..."
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 sudo dpkg -i google-chrome*.deb
-sudo apt-get install -f
-sudo apt-get install xvfb # headless chrome
-sudo apt-get install unzip
+sudo apt-get install -f -y
+sudo apt-get install -y xvfb # headless chrome
+sudo apt-get install -y unzip
 
 echo "Install ChromeDriver..."
 wget -N http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
@@ -97,4 +103,5 @@ sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
 # enable insecure registry DOCKER_OPTS="--insecure-registry 10.100.198.200:5000"in file /etc/default/docker/ 
 #ansible-playbook -i "localhost," -c local docker.yml
 
-
+# Force upgde dist for changed dependencies
+sudo apt-get dist-upgrade -y
