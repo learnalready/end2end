@@ -1,5 +1,6 @@
 *.log
 *.swp
+*.box
 *~
 .vagrant/
 .idea/

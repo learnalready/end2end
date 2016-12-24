@@ -1,0 +1,8 @@
+
+1.)  Install vagrant cachier plugin so you don't always have to download the
+box 
+
+
+# Create the box so you don't have to keep downloading all the files:
+(do from one directory up so you don't accidently try to push a gig to git hub :).
+1.) vagrant package --base <vm name to package>
