@@ -47,6 +47,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision :shell, path: "bootstrap.sh"
     #config.vm.provision :shell, inline: "PYTHONUNBUFFERED=1 ansible-playbook /vagrant/ansible/cd.yml -c local"
     config.vm.provider "virtualbox" do |v|
+      v.name = "linux_dev"
       v.memory = 2048
     end
   else   # dotnet
